@@ -24,16 +24,13 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>Jenkins/src/main/java</sourceDirectory>
-        <testSourceDirectory>Jenkins/src/test/java</testSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <debug>true</debug>
-                    <optimize>false</optimize>
-                    <showDeprecation>true</showDeprecation>
                     <source>11</source>
                     <target>11</target>
                 </configuration>
