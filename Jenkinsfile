@@ -2,6 +2,7 @@
 def server = Artifactory.server "artifactory"
 // Create an Artifactory Maven instance.
 def rtMaven = Artifactory.newMavenBuild()
+rtMaven.tool = "Maven 3.6.3"
 def buildInfo
 
 pipeline {
@@ -11,21 +12,16 @@ pipeline {
     }
 
     stages {
-        rtMaven.tool = "Maven 3.6.3"
         stage('Checkout') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Git-001', url: 'https://github.com/amolmahabir/Development']]])
             }
         }
         stage('Build') {
-            steps {
-                buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests'
-            }
+            buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests'
         }
         stage('Unit test') {
-            steps {
-                rtMaven.run pom: 'pom.xml', goals: 'test'
-            }
+            rtMaven.run pom: 'pom.xml', goals: 'test'
         }
 
         stage('SonarQube analysis') {
