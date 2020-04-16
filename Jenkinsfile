@@ -1,5 +1,4 @@
 pipeline {
-    String scmUrl = 'https://github.com/amolmahabir/Development'
     agent any
     tools {
         maven 'maven 3.6.3'
@@ -9,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Git-001', url: scmUrl]]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Git-001', url: 'https://github.com/amolmahabir/Development']]])
             }
         }
         stage('Build') {
