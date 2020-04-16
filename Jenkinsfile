@@ -1,5 +1,5 @@
 pipeline {
-    def scmUrl = 'https://github.com/amolmahabir/Development'
+    String scmUrl = 'https://github.com/amolmahabir/Development'
     agent any
     tools {
         maven 'maven 3.6.3'
