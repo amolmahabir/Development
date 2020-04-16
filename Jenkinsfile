@@ -1,11 +1,10 @@
-/* pipeline {
-    agent { docker { image 'python:3.8.2' } }
+pipeline {
+    agent any
     stages {
         stage('Build') {
             steps {
-                bat 'python --version'
-                bat 'ECHO Hello World'
+                bat "mvn clean package -DskipTests"
             }
         }
     }
-} */
+}
