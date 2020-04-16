@@ -21,5 +21,13 @@ pipeline {
                 bat "mvn test"
             }
         }
+
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonar-secret') {
+
+                }
+            }
+        }
     }
 }
