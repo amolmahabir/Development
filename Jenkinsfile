@@ -17,11 +17,21 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Git-001', url: 'https://github.com/amolmahabir/Development']]])
             }
         }
+
         stage('Build') {
-            buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests'
+            steps {
+                script {
+                    buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests'
+                }
+            }
         }
+
         stage('Unit test') {
-            rtMaven.run pom: 'pom.xml', goals: 'test'
+            steps {
+                script {
+                    rtMaven.run pom: 'pom.xml', goals: 'test'
+                }
+            }
         }
 
         stage('SonarQube analysis') {
