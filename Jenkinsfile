@@ -63,13 +63,13 @@ pipeline {
 
         stage('Deploy to Sogeti') {
             steps {
-                bat "Deploy to Sogeti"
+                bat "ECHO Deploy to Sogeti"
             }
         }
 
         stage('Transfer to KvK') {
             steps {
-                bat "Transfer to KvK"
+                bat "ECHO Transfer to KvK"
             }
         }
     }
