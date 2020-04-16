@@ -9,6 +9,7 @@ pipeline {
     agent any
     tools {
         jdk 'Java 11'
+        maven 'maven 3.6.3'
     }
 
     stages {
@@ -28,18 +29,14 @@ pipeline {
 
         stage('Unit test') {
             steps {
-                script {
-                    rtMaven.run pom: 'pom.xml', goals: 'test'
-                }
+                bat "mvn test"
             }
         }
 
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonar-secret', installationName: 'Sonar 8.2') {
-                    script{
-                        rtMaven.run pom: 'pom.xml', goals: 'sonar:sonar'
-                    }
+                    bat "mvn sonar:sonar"
                 }
             }
         }
