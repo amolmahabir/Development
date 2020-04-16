@@ -2,7 +2,7 @@
 def server = Artifactory.server "artifactory"
 // Create an Artifactory Maven instance.
 def rtMaven = Artifactory.newMavenBuild()
-rtMaven.tool = "Maven 3.6.3"
+rtMaven.tool = "maven 3.6.3"
 def buildInfo
 
 pipeline {
