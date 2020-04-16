@@ -24,8 +24,8 @@ pipeline {
 
         stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar-secret') {
-
+                withSonarQubeEnv(credentialsId: 'sonar-secret', installationName: 'Sonar 8.2') {
+                    bat "mvn verify sonar:sonar"
                 }
             }
         }
