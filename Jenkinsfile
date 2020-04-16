@@ -37,7 +37,9 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv(credentialsId: 'sonar-secret', installationName: 'Sonar 8.2') {
-                    rtMaven.run pom: 'pom.xml', goals: 'sonar:sonar'
+                    script{
+                        rtMaven.run pom: 'pom.xml', goals: 'sonar:sonar'
+                    }
                 }
             }
         }
@@ -50,10 +52,12 @@ pipeline {
 
         stage('Packaging') {
             steps {
-                // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-                rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-                rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-                server.publishBuildInfo buildInfo
+                script {
+                    // Set Artifactory repositories for dependencies resolution and artifacts deployment.
+                    rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
+                    rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+                    server.publishBuildInfo buildInfo
+                }
             }
         }
 
