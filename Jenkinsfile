@@ -40,7 +40,6 @@ pipeline {
                 }
                 timeout(time: 20, unit: 'SECONDS') {
                     script {
-                    bat "ECHO sonar.java.coveragePlugin"
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
                             error "Pipeline aborted due to a quality gate failure: ${qg.status}"
