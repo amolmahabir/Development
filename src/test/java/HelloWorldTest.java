@@ -6,6 +6,6 @@ class HelloWorldTest {
 
   @Test
   void shouldGetGreeting() {
-    assertEquals("Hello, World!@@@@", HelloWorld.getGreeting());
+    assertEquals("Hello, World!", HelloWorld.getGreeting());
   }
 }
