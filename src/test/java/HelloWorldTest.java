@@ -8,4 +8,9 @@ class HelloWorldTest {
   void shouldGetGreeting() {
     assertEquals("Hello, World!", HelloWorld.getGreeting());
   }
+
+  @Test
+  void shouldGetHarshBogus() {
+    assertEquals("Bugger off, John!", HelloWorld.bogusMethod("John"));
+  }
 }
