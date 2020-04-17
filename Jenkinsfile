@@ -38,6 +38,14 @@ pipeline {
                 withSonarQubeEnv(credentialsId: 'sonar-secret', installationName: 'Sonar 8.2') {
                     bat "mvn sonar:sonar"
                 }
+                timeout(time: 1, unit: 'MINUTES') {
+                    script {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to a quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
             }
         }
 
