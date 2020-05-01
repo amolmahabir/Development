@@ -1,10 +1,3 @@
-// Get Artifactory server instance, defined in the Artifactory Plugin administration page.
-def server = Artifactory.server "artifactory"
-// Create an Artifactory Maven instance.
-def rtMaven = Artifactory.newMavenBuild()
-rtMaven.tool = "maven 3.6.3"
-def buildInfo
-
 pipeline {
     agent any
     tools {
@@ -22,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests'
+                    bat 'mvn clean install -DskipTests'
                 }
             }
         }
@@ -58,10 +51,7 @@ pipeline {
         stage('Packaging') {
             steps {
                 script {
-                    // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-                    rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-                    rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-                    server.publishBuildInfo buildInfo
+                    bat "curl -u admin:password --upload-file /target/**.jar \"http://localhost:8046/artifactory/libs-release-local/com.amol.learn/development/1.0/development-1.0.jar\""
                 }
             }
         }
