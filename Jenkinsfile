@@ -51,7 +51,7 @@ pipeline {
         stage('Packaging') {
             steps {
                 script {
-                    bat "curl -u admin:password --upload-file /target/development-1.0-SNAPSHOT.jar \"http://localhost:8046/artifactory/libs-release-local/com.amol.learn/development/1.0/development-1.0.jar\""
+                    bat "curl -v -u admin:password --data-binary @/target/development-1.0-SNAPSHOT.jar \"http://localhost:8046/artifactory/libs-release-local/com.amol.learn/development/1.0/development-1.0.jar\""
                 }
             }
         }
